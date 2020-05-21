@@ -95,9 +95,165 @@ class SortingRobot:
     def sort(self):
         """
         Sort the robot's list.
+
+        Properties:
+
+        self._list = l          # The list the robot is tasked with sorting
+        self._item = None       # The item the robot is holding
+        self._position = 0      # The list position the robot is at
+        self._light = "OFF"     # The state of the robot's light
+        self._time = 0          # A time counter (stretch)
         """
-        # Fill this out
-        pass
+        # Set the light to "on"
+        self.set_light_on()
+
+        # While light is on 
+        while self.light_is_on():
+
+            # Set light off to indicate a swap has not been made
+            self.set_light_off()
+
+            # For item in list
+            for _ in range(-1, len(self._list)-1):
+
+                # Check if robot can move to the right
+                if self.can_move_right():
+
+                    # Swap None with item at index 0
+                    self.swap_item()
+                    # Move to the right
+                    self.move_right()
+                
+                    # Compare held item with item at index 1
+
+                    # If either the item at hand, or the item at this
+                    # index are None
+                    # _item == None or _list[_position] == None
+                    if self.compare_item() == None:
+                        self.move_left()
+                        self.swap_item()
+
+                        self.move_right()
+                        # Set light to on
+                        self.set_light_on()
+
+                    # If the item at hand is less than the item at that index
+                    # _item < _list[_position]
+                    elif self.compare_item() == -1:
+                        # Move left and swap held item with item at index 0
+                        self.move_left()
+                        self.swap_item()
+                        self.move_right()
+
+                    # If the item at hand is equal than the item at that index
+                    # _item == _list[_position]
+                    elif self.compare_item() == 0:
+                        self.move_left()
+                        self.swap_item()
+                        self.move_right()
+
+                    # Else: If the item at hand is greater than the item at that index
+                    # _item > _list[_position]                    
+                    else:
+                        # swap held item with item at index 1
+                        self.swap_item()
+                        # Move left and swap held item with item at index 0
+                        self.move_left()
+                        self.swap_item()
+                        # Set light to on
+                        self.set_light_on()
+                        # Move back to index 1 and repeat
+                        self.move_right()
+
+                # Else move all the way to the start of the list
+                else:
+                    # While can_move_left is True AND the light is on
+                    while self.can_move_left() and self.light_is_on():
+                        # move to the left
+                        self.move_left()
+
+"""
+        # Set the light to "on"
+        self.set_light_on()
+
+        # While the light is "on"
+        while self.light_is_on():
+
+            # Turn the light "off"
+            self.set_light_off()
+
+            # While the robot can move right
+            while self.can_move_right():
+
+                
+                Compare the held item with the item in front of the robot:
+                If the held item's value is greater, return 1.
+                If the held item's value is less, return -1.
+                If the held item's value is equal, return 0.
+                If either item is None, return None.
+                
+
+                # Compare the element at this index with the _item (item at hand)
+                result = self.compare_item()
+
+                if result == 1:
+                    # This means the item at hand is greater than the item at that index
+                    # _item > _list[_position]
+                    pass
+
+
+                if result == 0:
+                    # This means the item at hand is equal than the item at that index
+                    # _item == _list[_position]
+                    pass
+
+                if result == None:
+                    # This means that either the item at hand, or the item at this
+                    # index are None
+                    # _item == None or _list[_position] == None
+
+                    # If the item at that index is None
+                    #if self._list[self._position] == None:
+                        # Swap
+                    self.swap_item()
+                        # Turn the light "on"
+                        #self.set_light_on()
+
+                    #else:
+
+                        
+
+                    # Swap
+                    #self.swap_item()
+                    # Turn the light "on"
+                    #self.set_light_on()
+
+
+                elif result == -1:
+                    # This means the item at hand is less than the item at that index
+                    # _item < _list[_position]
+                    
+                    # Swap
+                    self.swap_item()
+                    # Turn the light "on"
+                    self.set_light_on()
+
+                # If the element at this index is greater than _item (the item at hand)
+                #if self._list[self._position] > self._item:
+                    # Swap
+                    #self.swap_item()
+                    # Turn the light "on"
+                    #self.set_light_on()
+
+                # Move right  
+                self.move_right()
+
+            # Move left till position is 0
+            while self.can_move_left():
+                self.move_left()
+                """
+        
+
 
 
 if __name__ == "__main__":
