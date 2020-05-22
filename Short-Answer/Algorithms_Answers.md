@@ -13,3 +13,8 @@ c) 	O(n)			-	The algorithm grows as the input grows, in a recuring way. That's w
 ## Exercise II
 
 
+To minimize the amount of broken eggs we can use a binary search since it searches for a target dividing the mount of floors and starting to test from the middle of the amount of floors. the runtime complexity would be O(logn) because of the repited loops till we find the right floor.
+
+While the egg breaks, I would divide the amount of floors and do a test from the middle. If the egg breaks, set a new high or low based on which half would be closer to the target we are trying to find (the floor from which the egg doesn't break). If it doesn't, return the floor in which the egg didn't break.
+
+We can keep repeating the process till we reach the egg friendly floor.
